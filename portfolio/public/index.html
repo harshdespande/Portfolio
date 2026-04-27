@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Harsh Deshpande | Data Engineer &amp; Analytics Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:      #0d1117;
+      --surface: #161b22;
+      --surface2:#21262d;
+      --border:  #30363d;
+      --green:   #39d353;
+      --teal:    #2dd4bf;
+      --purple:  #a78bfa;
+      --orange:  #f59e0b;
+      --text:    #e6edf3;
+      --muted:   #8b949e;
+      --mono:    'Fira Code', monospace;
+      --sans:    'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background:var(--bg); color:var(--text); font-family:var(--sans); line-height:1.6; overflow-x:hidden; }
+    ::-webkit-scrollbar { width:4px; }
+    ::-webkit-scrollbar-track { background:var(--bg); }
+    ::-webkit-scrollbar-thumb { background:var(--teal); border-radius:2px; }
+
+    /* NAV */
+    nav {
+      position:fixed; top:0; width:100%; z-index:200;
+      background:rgba(13,17,23,0.92); backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--border);
+      height:64px; display:flex; align-items:center;
+      padding:0 6vw; justify-content:space-between;
+    }
+    .nav-logo { font-family:var(--mono); font-size:1.05rem; color:var(--green); text-decoration:none; }
+    .nav-logo em { color:var(--muted); font-style:normal; }
+    .nav-links { display:flex; gap:1.8rem; list-style:none; align-items:center; }
+    .nav-links a { font-family:var(--mono); font-size:0.8rem; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .nav-links a:hover { color:var(--teal); }
+    .nav-links a b { color:var(--teal); font-weight:400; }
+    .btn-resume {
+      font-family:var(--mono); font-size:0.78rem;
+      border:1px solid var(--teal); color:var(--teal);
+      padding:6px 16px; border-radius:4px; text-decoration:none; transition:background .2s;
+    }
+    .btn-resume:hover { background:rgba(45,212,191,.12); }
+
+    /* HERO */
+    #hero {
+      min-height:100vh; display:flex; align-items:center;
+      padding:80px 6vw 0; position:relative; overflow:hidden;
+    }
+    .grid-bg {
+      position:absolute; inset:0;
+      background-image:linear-gradient(rgba(45,212,191,.04) 1px,transparent 1px),
+                       linear-gradient(90deg,rgba(45,212,191,.04) 1px,transparent 1px);
+      background-size:48px 48px; pointer-events:none;
+    }
+    .hero-inner { position:relative; max-width:860px; }
+    .hero-tag {
+      font-family:var(--mono); font-size:.9rem; color:var(--teal);
+      margin-bottom:16px; display:flex; align-items:center; gap:10px;
+    }
+    .hero-tag::before { content:''; display:inline-block; width:40px; height:1px; background:var(--teal); }
+    .hero-name { font-size:clamp(2.8rem,7vw,5.2rem); font-weight:700; line-height:1.05; letter-spacing:-.02em; margin-bottom:8px; }
+    .hero-name .hl { color:var(--teal); }
+    .hero-role { font-size:clamp(1.4rem,3.5vw,2.4rem); color:var(--muted); font-weight:400; margin-bottom:28px; }
+    .hero-desc { max-width:560px; color:var(--muted); font-size:1.05rem; margin-bottom:40px; line-height:1.85; }
+    .hero-btns { display:flex; gap:16px; flex-wrap:wrap; }
+    .btn-primary { background:var(--teal); color:#0d1117; padding:12px 28px; border-radius:6px; font-weight:700; font-size:.95rem; text-decoration:none; transition:opacity .2s; }
+    .btn-primary:hover { opacity:.85; }
+    .btn-outline { border:1px solid var(--border); color:var(--text); padding:12px 28px; border-radius:6px; font-size:.95rem; text-decoration:none; transition:border-color .2s,color .2s; }
+    .btn-outline:hover { border-color:var(--teal); color:var(--teal); }
+
+    /* SECTIONS */
+    section { padding:100px 6vw; }
+    .sec-tag { font-family:var(--mono); font-size:.8rem; color:var(--teal); margin-bottom:10px; display:flex; align-items:center; gap:10px; }
+    .sec-tag::before { content:''; display:inline-block; width:40px; height:1px; background:var(--teal); }
+    .sec-title { font-size:clamp(1.6rem,3.5vw,2.4rem); font-weight:700; letter-spacing:-.02em; margin-bottom:60px; }
+    .sec-title .ac { color:var(--teal); }
+    .divider { width:100%; height:1px; background:linear-gradient(90deg,transparent,var(--border),transparent); }
+
+    /* ABOUT */
+    #about { background:var(--surface); }
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start; }
+    .about-text p { color:var(--muted); margin-bottom:18px; font-size:1rem; line-height:1.85; }
+    .specialties { margin-top:28px; display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .spec-item { font-family:var(--mono); font-size:.78rem; color:var(--muted); display:flex; align-items:center; gap:8px; }
+    .spec-item::before { content:'▹'; color:var(--teal); }
+    .stat-box { background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:24px; margin-bottom:20px; transition:border-color .2s,transform .2s; }
+    .stat-box:hover { border-color:var(--teal); transform:translateY(-2px); }
+    .stat-num { font-family:var(--mono); font-size:2rem; font-weight:600; color:var(--teal); }
+    .stat-label { color:var(--muted); font-size:.9rem; margin-top:4px; }
+
+    /* SKILLS */
+    #skills { background:var(--bg); }
+    .skills-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:22px; }
+    .skill-card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:28px; transition:border-color .25s,transform .25s; }
+    .skill-card:hover { border-color:var(--teal); transform:translateY(-4px); }
+    .skill-icon { font-size:1.5rem; margin-bottom:14px; }
+    .skill-title { font-size:1rem; font-weight:700; margin-bottom:14px; }
+    .skill-tags { display:flex; flex-wrap:wrap; gap:8px; }
+    .stag { font-family:var(--mono); font-size:.72rem; background:var(--surface2); border:1px solid var(--border); color:var(--muted); padding:4px 10px; border-radius:4px; }
+
+    /* PROJECTS */
+    #projects { background:var(--surface); }
+    .proj-list { display:flex; flex-direction:column; gap:80px; }
+    .proj-item { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+    .proj-item.rev { direction:rtl; }
+    .proj-item.rev > * { direction:ltr; }
+    .proj-visual {
+      background:var(--surface2); border:1px solid var(--border); border-radius:12px;
+      padding:32px; min-height:260px; display:flex; flex-direction:column;
+      justify-content:space-between; position:relative; overflow:hidden; transition:border-color .25s;
+    }
+    .proj-visual:hover { border-color:var(--teal); }
+    .proj-visual-bg { position:absolute; inset:0; background:radial-gradient(circle at 80% 20%,rgba(45,212,191,.07) 0%,transparent 60%); }
+    .proj-label { font-family:var(--mono); font-size:.78rem; color:var(--teal); margin-bottom:16px; }
+    .tech-pills { display:flex; flex-wrap:wrap; gap:8px; position:relative; z-index:1; }
+    .tpill { font-family:var(--mono); font-size:.72rem; background:rgba(45,212,191,.1); border:1px solid rgba(45,212,191,.3); color:var(--teal); padding:5px 12px; border-radius:20px; }
+    .pipeline { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:20px; position:relative; z-index:1; }
+    .pnode { background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:7px 12px; font-family:var(--mono); font-size:.7rem; color:var(--muted); }
+    .parrow { color:var(--teal); font-size:.85rem; }
+    .proj-num { font-family:var(--mono); font-size:.78rem; color:var(--teal); margin-bottom:10px; }
+    .proj-title { font-size:1.4rem; font-weight:700; margin-bottom:16px; letter-spacing:-.01em; }
+    .proj-title a { color:var(--text); text-decoration:none; }
+    .proj-title a:hover { color:var(--teal); }
+    .proj-desc { background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:20px; color:var(--muted); font-size:.95rem; line-height:1.8; margin-bottom:18px; }
+    .proj-hl { list-style:none; margin-bottom:18px; }
+    .proj-hl li { font-size:.87rem; color:var(--muted); padding:4px 0; display:flex; align-items:flex-start; gap:8px; }
+    .proj-hl li::before { content:'▹'; color:var(--teal); flex-shrink:0; }
+    .proj-techs { display:flex; flex-wrap:wrap; gap:10px; }
+    .proj-techs span { font-family:var(--mono); font-size:.75rem; color:var(--muted); }
+
+    /* PRESENTATIONS */
+    #presentations { background:var(--bg); }
+    .pres-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:24px; }
+    .pres-card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:28px; transition:border-color .25s,transform .25s; }
+    .pres-card:hover { border-color:var(--purple); transform:translateY(-4px); }
+    .pres-date { font-family:var(--mono); font-size:.75rem; color:var(--purple); margin-bottom:12px; }
+    .pres-title { font-size:1.05rem; font-weight:700; margin-bottom:12px; }
+    .pres-desc { color:var(--muted); font-size:.9rem; line-height:1.75; }
+
+    /* EDUCATION */
+    #education { background:var(--surface); }
+    .edu-grid { display:grid; grid-template-columns:1fr 1fr; gap:40px; }
+    .edu-block-title { font-family:var(--mono); font-size:.8rem; color:var(--orange); text-transform:uppercase; letter-spacing:.08em; margin-bottom:24px; }
+    .edu-card { background:var(--surface2); border:1px solid var(--border); border-left:3px solid var(--teal); border-radius:8px; padding:22px; margin-bottom:18px; transition:transform .2s; }
+    .edu-card:hover { transform:translateX(4px); }
+    .edu-deg { font-size:1rem; font-weight:700; margin-bottom:4px; }
+    .edu-school { color:var(--teal); font-size:.88rem; margin-bottom:4px; }
+    .edu-meta { font-family:var(--mono); font-size:.75rem; color:var(--muted); }
+    .course-card { background:var(--surface2); border:1px solid var(--border); border-left:3px solid var(--purple); border-radius:8px; padding:18px; margin-bottom:14px; transition:transform .2s; }
+    .course-card:hover { transform:translateX(4px); }
+    .course-name { font-size:.95rem; font-weight:600; margin-bottom:4px; }
+    .course-prov { color:var(--purple); font-size:.83rem; margin-bottom:4px; }
+    .course-desc { color:var(--muted); font-size:.8rem; }
+
+    /* CONTACT */
+    #contact { background:var(--bg); text-align:center; }
+    .contact-inner { max-width:580px; margin:0 auto; }
+    .contact-title { font-size:clamp(1.8rem,4vw,2.8rem); font-weight:700; margin-bottom:20px; }
+    .contact-desc { color:var(--muted); margin-bottom:40px; font-size:1rem; line-height:1.85; }
+    .contact-email {
+      display:inline-block; font-family:var(--mono); font-size:1rem;
+      color:var(--teal); text-decoration:none;
+      border:1px solid var(--teal); padding:14px 32px; border-radius:6px;
+      transition:background .2s; margin-bottom:48px;
+    }
+    .contact-email:hover { background:rgba(45,212,191,.12); }
+    .socials { display:flex; justify-content:center; gap:28px; flex-wrap:wrap; }
+    .socials a { font-family:var(--mono); font-size:.82rem; color:var(--muted); text-decoration:none; display:flex; align-items:center; gap:6px; transition:color .2s; }
+    .socials a:hover { color:var(--teal); }
+
+    /* FOOTER */
+    footer { background:var(--surface); border-top:1px solid var(--border); padding:28px 6vw; text-align:center; }
+    footer p { font-family:var(--mono); font-size:.75rem; color:var(--muted); }
+    footer span { color:var(--teal); }
+
+    /* ANIMATIONS */
+    .fade-in { opacity:0; transform:translateY(24px); transition:opacity .6s ease,transform .6s ease; }
+    .fade-in.visible { opacity:1; transform:translateY(0); }
+
+    /* RESPONSIVE */
+    @media (max-width:768px) {
+      .nav-links { display:none; }
+      section { padding:70px 5vw; }
+      .about-grid,.proj-item,.edu-grid { grid-template-columns:1fr; gap:36px; }
+      .proj-item.rev { direction:ltr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#hero"><em>&lt;</em>HD<em>/&gt;</em></a>
+    <ul class="nav-links">
+      <li><a href="#about"><b>01.</b> About</a></li>
+      <li><a href="#skills"><b>02.</b> Skills</a></li>
+      <li><a href="#projects"><b>03.</b> Projects</a></li>
+      <li><a href="#presentations"><b>04.</b> Talks</a></li>
+      <li><a href="#education"><b>05.</b> Education</a></li>
+      <li><a href="#contact"><b>06.</b> Contact</a></li>
+      <li><a class="btn-resume" href="./resume.pdf" target="_blank">Resume ↗</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="grid-bg"></div>
+    <div class="hero-inner">
+      <div class="hero-tag">Hi, my name is</div>
+      <h1 class="hero-name">Harsh<br><span class="hl">Deshpande.</span></h1>
+      <h2 class="hero-role">Data Engineer &amp; Analytics Developer</h2>
+      <p class="hero-desc">
+        I build data pipelines, analytics dashboards, and AI-powered applications
+        that transform raw data into actionable insights. Currently pursuing MSc CS
+        at Modern College, Pune — actively seeking internships in Data Engineering,
+        Analytics &amp; Software Development.
+      </p>
+      <div class="hero-btns">
+        <a class="btn-primary" href="#projects">View My Work</a>
+        <a class="btn-outline" href="#contact">Get In Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="sec-tag">01. about me</div>
+    <h2 class="sec-title">Who I <span class="ac">Am</span></h2>
+    <div class="about-grid fade-in">
+      <div class="about-text">
+        <p>
+          I'm a Computer Science graduate currently pursuing my MSc CS at Modern College of Arts,
+          Science and Commerce, Shivajinagar, Pune. My passion lies at the intersection of
+          data engineering, analytics, and software development — building systems that make
+          data useful and insights actionable.
+        </p>
+        <p>
+          I've built an AI-powered Perfume Recommendation System using Llama 3 and the Groq API,
+          delivered technical presentations on Medallion Architecture and ETL pipelines, and
+          completed industry simulations with Deloitte and Tata. I enjoy the full stack of data
+          work — from crafting SQL transformations to shipping real-time dashboards.
+        </p>
+        <p>
+          Outside of tech, I've been playing tabla for 8+ years and hold the Madhyama Poorna
+          certification from Gandharva Mahavidyalaya. I also enjoy solving algorithmic challenges
+          on LeetCode (Arrays, Strings, DP, SQL).
+        </p>
+        <div class="specialties">
+          <div class="spec-item">Data Pipeline Design</div>
+          <div class="spec-item">ETL / ELT Development</div>
+          <div class="spec-item">Data Visualization</div>
+          <div class="spec-item">LLM Application Dev</div>
+          <div class="spec-item">Shell Scripting</div>
+          <div class="spec-item">SQL &amp; Data Modeling</div>
+          <div class="spec-item">Dashboard Engineering</div>
+          <div class="spec-item">AI Tooling &amp; MCP</div>
+        </div>
+      </div>
+      <div>
+        <div class="stat-box"><div class="stat-num">3+</div><div class="stat-label">Real-world projects shipped</div></div>
+        <div class="stat-box"><div class="stat-num">2</div><div class="stat-label">Technical presentations delivered</div></div>
+        <div class="stat-box"><div class="stat-num">4</div><div class="stat-label">Industry simulations &amp; certifications</div></div>
+        <div class="stat-box"><div class="stat-num">8+</div><div class="stat-label">Years playing tabla 🥁</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="sec-tag">02. technical skills</div>
+    <h2 class="sec-title">My <span class="ac">Stack</span></h2>
+    <div class="skills-grid fade-in">
+
+      <div class="skill-card">
+        <div class="skill-icon">🐍</div>
+        <div class="skill-title">Languages</div>
+        <div class="skill-tags">
+          <span class="stag">Python</span><span class="stag">SQL</span>
+          <span class="stag">JavaScript</span><span class="stag">Node.js</span>
+          <span class="stag">HTML / CSS</span><span class="stag">C</span>
+          <span class="stag">Shell Scripting</span><span class="stag">Bash</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon">📊</div>
+        <div class="skill-title">Data &amp; Analytics</div>
+        <div class="skill-tags">
+          <span class="stag">Pandas</span><span class="stag">NumPy</span>
+          <span class="stag">Matplotlib</span><span class="stag">Seaborn</span>
+          <span class="stag">Plotly</span><span class="stag">Power BI</span>
+          <span class="stag">Excel</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon">🗄️</div>
+        <div class="skill-title">Databases &amp; Data Eng</div>
+        <div class="skill-tags">
+          <span class="stag">MySQL</span><span class="stag">MongoDB</span>
+          <span class="stag">ETL Pipelines</span><span class="stag">Data Modeling</span>
+          <span class="stag">Medallion Architecture</span><span class="stag">Data Lakehouse</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon">⚛️</div>
+        <div class="skill-title">Frontend &amp; APIs</div>
+        <div class="skill-tags">
+          <span class="stag">React.js</span><span class="stag">REST APIs</span>
+          <span class="stag">OpenWeather API</span><span class="stag">Chat-Groq API</span>
+          <span class="stag">Responsive Design</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon">🤖</div>
+        <div class="skill-title">AI &amp; Emerging Tech</div>
+        <div class="skill-tags">
+          <span class="stag">LLM App Dev</span><span class="stag">Llama 3</span>
+          <span class="stag">Chat-Groq</span><span class="stag">Model Context Protocol</span>
+          <span class="stag">AI Tooling</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon">🛠️</div>
+        <div class="skill-title">Tools &amp; DevOps</div>
+        <div class="skill-tags">
+          <span class="stag">Git</span><span class="stag">GitHub Actions</span>
+          <span class="stag">CI/CD</span><span class="stag">Jupyter Notebook</span>
+          <span class="stag">VS Code</span><span class="stag">Linux</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="sec-tag">03. projects</div>
+    <h2 class="sec-title">Featured <span class="ac">Work</span></h2>
+    <div class="proj-list">
+
+      <!-- Project 1 -->
+      <div class="proj-item fade-in">
+        <div class="proj-visual">
+          <div class="proj-visual-bg"></div>
+          <div class="proj-label">// AI Recommendation Engine</div>
+          <div class="pipeline">
+            <div class="pnode">User Input</div><div class="parrow">→</div>
+            <div class="pnode">Llama 3</div><div class="parrow">→</div>
+            <div class="pnode">MySQL</div><div class="parrow">→</div>
+            <div class="pnode">Result</div>
+          </div>
+          <div class="tech-pills">
+            <span class="tpill">Python</span>
+            <span class="tpill">MySQL</span>
+            <span class="tpill">Chat-Groq API</span>
+            <span class="tpill">Llama 3</span>
+          </div>
+        </div>
+        <div class="proj-info">
+          <div class="proj-num">01. Featured Project</div>
+          <h3 class="proj-title"><a href="https://github.com/harshdespande" target="_blank">Perfume Recommendation System ↗</a></h3>
+          <div class="proj-desc">
+            An AI-powered fragrance recommendation engine using natural-language interaction via Llama 3
+            through the Chat-Groq API. Delivers personalized suggestions by factoring in body chemistry
+            and lifestyle data, with MySQL as the structured backend.
+          </div>
+          <ul class="proj-hl">
+            <li>Natural-language chat interface powered by Llama 3 LLM</li>
+            <li>User preference logic incorporating body chemistry &amp; lifestyle factors</li>
+            <li>MySQL backend for structured fragrance metadata storage &amp; retrieval</li>
+            <li>End-to-end data pipeline: input → LLM reasoning → DB query → output</li>
+          </ul>
+          <div class="proj-techs">
+            <span>Python</span><span>·</span><span>MySQL</span><span>·</span>
+            <span>Chat-Groq API</span><span>·</span><span>Llama 3</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="proj-item rev fade-in">
+        <div class="proj-info">
+          <div class="proj-num">02. Featured Project</div>
+          <h3 class="proj-title"><a href="https://github.com/harshdespande" target="_blank">Real-Time Weather Dashboard ↗</a></h3>
+          <div class="proj-desc">
+            A fully responsive real-time weather dashboard built with React.js, featuring dynamic UI updates,
+            clean data presentation, and robust API integration with OpenWeatherMap. A production-quality
+            frontend data engineering showcase.
+          </div>
+          <ul class="proj-hl">
+            <li>Live weather data via OpenWeather API with full error handling</li>
+            <li>Dynamic responsive UI with React state management</li>
+            <li>Clean data transformation layer before rendering</li>
+            <li>Modular component architecture — scalable and maintainable</li>
+          </ul>
+          <div class="proj-techs">
+            <span>React.js</span><span>·</span><span>JavaScript</span><span>·</span>
+            <span>OpenWeather API</span><span>·</span><span>CSS</span>
+          </div>
+        </div>
+        <div class="proj-visual" style="background:radial-gradient(circle at 20% 80%,rgba(167,139,250,.08) 0%,transparent 60%)">
+          <div class="proj-label">// React Data Dashboard</div>
+          <div class="pipeline">
+            <div class="pnode">API Call</div><div class="parrow">→</div>
+            <div class="pnode">Transform</div><div class="parrow">→</div>
+            <div class="pnode">State</div><div class="parrow">→</div>
+            <div class="pnode">UI</div>
+          </div>
+          <div class="tech-pills">
+            <span class="tpill" style="background:rgba(167,139,250,.1);border-color:rgba(167,139,250,.3);color:#a78bfa">React.js</span>
+            <span class="tpill" style="background:rgba(167,139,250,.1);border-color:rgba(167,139,250,.3);color:#a78bfa">OpenWeather</span>
+            <span class="tpill" style="background:rgba(167,139,250,.1);border-color:rgba(167,139,250,.3);color:#a78bfa">CSS</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PRESENTATIONS -->
+  <section id="presentations">
+    <div class="sec-tag">04. talks &amp; presentations</div>
+    <h2 class="sec-title">Technical <span class="ac">Presentations</span></h2>
+    <div class="pres-grid fade-in">
+
+      <div class="pres-card">
+        <div class="pres-date">📅 September 2025 · Data Engineering</div>
+        <h3 class="pres-title">Medallion Architecture in Data Lakehouses</h3>
+        <p class="pres-desc">
+          Presented the modern Medallion Architecture for Data Lakehouses — covering Bronze–Silver–Gold
+          layer design, data flow patterns, SQL-based transformation processes, and best practices for
+          building layered, scalable data systems.
+        </p>
+      </div>
+
+      <div class="pres-card">
+        <div class="pres-date">📅 February 2025 · Data Engineering</div>
+        <h3 class="pres-title">ETL Process &amp; SQL Demonstration</h3>
+        <p class="pres-desc">
+          Delivered a hands-on session on SQL-based ETL workflows covering data transformation,
+          integration, and loading. Showcased practical techniques applicable to real-world
+          data warehousing scenarios.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="sec-tag">05. education &amp; certifications</div>
+    <h2 class="sec-title">Education &amp; <span class="ac">Learning</span></h2>
+    <div class="edu-grid fade-in">
+
+      <div>
+        <div class="edu-block-title">🎓 Formal Education</div>
+        <div class="edu-card">
+          <div class="edu-deg">Master of Science — Computer Science</div>
+          <div class="edu-school">Modern College of Arts, Science &amp; Commerce, Shivajinagar</div>
+          <div class="edu-meta">2025 – Present · Pune, Maharashtra</div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-deg">Bachelor of Science — Computer Science</div>
+          <div class="edu-school">Savitribai Phule Pune University</div>
+          <div class="edu-meta">Graduated June 2025 · 65.68%</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="edu-block-title">📜 Courses &amp; Industry Simulations</div>
+        <div class="course-card">
+          <div class="course-name">Introduction to Data Engineering</div>
+          <div class="course-prov">IBM – Coursera · Oct 2024</div>
+          <div class="course-desc">ETL processes, data pipelines &amp; the modern data stack.</div>
+        </div>
+        <div class="course-card">
+          <div class="course-name">Python Essentials 1</div>
+          <div class="course-prov">Cisco Networking Academy · Sept 2024</div>
+          <div class="course-desc">Data types, control flow, file handling &amp; problem-solving.</div>
+        </div>
+        <div class="course-card">
+          <div class="course-name">Data Analytics Simulation</div>
+          <div class="course-prov">Deloitte</div>
+          <div class="course-desc">Forensic data analysis &amp; data-driven problem-solving.</div>
+        </div>
+        <div class="course-card">
+          <div class="course-name">Data Visualization Simulation</div>
+          <div class="course-prov">Tata Group</div>
+          <div class="course-desc">Executive-ready dashboards &amp; key business insight presentation.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-inner fade-in">
+      <div class="sec-tag" style="justify-content:center">06. what's next</div>
+      <h2 class="contact-title">Let's Work Together</h2>
+      <p class="contact-desc">
+        I'm actively seeking internship opportunities in Data Engineering, Data Analytics,
+        and Software Development. Whether you have a project in mind or just want to say hi,
+        my inbox is always open.
+      </p>
+      <a class="contact-email" href="mailto:harshdeshpande004@gmail.com">harshdeshpande004@gmail.com</a>
+      <div class="socials">
+        <a href="https://www.linkedin.com/in/harsh-deshpande-88a22a326" target="_blank">💼 LinkedIn</a>
+        <a href="https://github.com/harshdespande" target="_blank">🐙 GitHub</a>
+        <a href="tel:+919156622732">📞 +91-9156622732</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Designed &amp; built by <span>Harsh Deshpande</span> · Deployed via GitHub Actions · <span>2025</span></p>
+  </footer>
+
+  <script>
+    const obs = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>
